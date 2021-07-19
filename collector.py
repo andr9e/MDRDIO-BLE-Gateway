@@ -1,4 +1,3 @@
-import mysql.connector
 import requests
 import time
 import os
@@ -7,7 +6,7 @@ import json
 import paho.mqtt.client as mqtt #import the mqtt Client
 
 # start sdk console app
-subprocess.Popen(['sh',"/home/pi/bin/net472/start_sdk"])
+subprocess.Popen(['sh',"/home/pi/bin/start_sdk"])
 time.sleep(30) # wait 30 seconds for console Dongle Console app to load
 broker_address="localhost"
 
@@ -18,7 +17,6 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a Published message is received from the server
 def on_message(client, userdata, msg):
-	print (msg)
 	selectTagToPub(json.loads(msg.payload)["tagType"],client,msg.payload)
 
 def is_EnvironmentSensor(client,msg):
